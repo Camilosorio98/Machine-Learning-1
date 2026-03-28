@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional Machine Learning Platform - Educational Project">
+    <meta name="author" content="ML Project Team">
+    
+    <title>ML Project | Data with Roots</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="bi bi-cpu-fill"></i> ML <span>PROJECT</span>
+            </a>
+
+            <input type="checkbox" id="nav-toggle" class="nav-toggle">
+            <label for="nav-toggle" class="nav-toggle-label">
+                <i class="bi bi-list"></i>
+            </label>
+
+            <nav class="nav-links">
+                <a href="/" class="nav-item">Home</a>
+                
+                <div class="dropdown">
+                    <span class="nav-item">
+                        Use Cases <i class="bi bi-chevron-down" style="font-size: 0.7rem;"></i>
+                    </span>
+                    <div class="dropdown-content">
+                        <a href="/use-cases/sales">
+                            <i class="bi bi-graph-up-arrow me-2"></i> Sales Prediction
+                        </a>
+                        <a href="/use-cases/price">
+                            <i class="bi bi-tags me-2"></i> Price Prediction
+                        </a>
+                        <a href="/use-cases/spending">
+                            <i class="bi bi-cart-check me-2"></i> Spending Forecast
+                        </a>
+                        <a href="/use-cases/demand">
+                            <i class="bi bi-box-seam me-2"></i> Demand Analysis
+                        </a>
+                    </div>
+                </div>
+
+                <a href="/linear-regression" class="nav-item">Linear Regression</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 class="logo"><i class="bi bi-cpu"></i> ML <span>PROJECT</span></h3>
+                    <p>Building the future of predictive analytics through structured data and regression models.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://github.com/Camilosorio98/Machine-Learning-1" target="_blank"><i class="bi bi-github"></i> GitHub Repo</a></li>
+                        <li><a href="#"><i class="bi bi-book"></i> Documentation</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Machine Learning Class | UDEC | All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

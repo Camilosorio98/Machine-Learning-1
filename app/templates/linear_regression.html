@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="hero" style="padding: 4rem 0 2rem;">
+        <h1 class="display-4 fw-bold">Linear <span style="background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Regression</span></h1>
+        <p class="text-low">Mathematical foundations and predictive analysis visualization.</p>
+      </div>
+
+      <div class="grid-2 mt-4">
+        <div class="card shadow">
+        <h3 style="color: var(--primary); margin-bottom: 1.5rem;">
+            <i class="bi bi- Mortarboard"></i> Theoretical Concept
+        </h3>
+        <p>Linear regression is a <strong>Supervised Learning</strong> algorithm used to predict a continuous target variable (Y) based on one or more predictor variables (X).</p>
+        
+        <div style="background: rgba(34, 211, 238, 0.05); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); margin: 1.5rem 0; text-align: center;">
+            <p style="color: var(--text-low); font-size: 0.8rem; margin-bottom: 0.5rem; text-transform: uppercase;">Mathematical Model</p>
+            <code style="font-size: 1.8rem; color: var(--primary); font-family: 'Courier New', monospace;">
+                Y = β₀ + β₁X + ε
+            </code>
+         </div>
+        
+           <ul style="list-style: none; color: var(--text-low); font-size: 0.9rem;">
+            <li class="mb-2"><i class="bi bi-check2-circle text-primary"></i> <strong>β₀:</strong> Intercept (value of Y when X is 0).</li>
+            <li class="mb-2"><i class="bi bi-check2-circle text-primary">
+                {% endblock %}
