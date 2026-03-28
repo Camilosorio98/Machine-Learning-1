@@ -1,0 +1,185 @@
+/* --- PRESET: GOOGLE FONTS & TRANSITIONS --- */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+
+:root {
+    --bg-main: #020617;          /* Negro espacial */
+    --bg-surface: #0f172a;       /* Fondo de tarjetas */
+    --bg-accent: #1e293b;        /* Contraste suave */
+    --primary: #22d3ee;          /* Cian neón */
+    --primary-glow: rgba(34, 211, 238, 0.3);
+    --secondary: #818cf8;        /* Violeta suave para IA */
+    --text-high: #f8fafc;
+    --text-low: #64748b;
+    --glass: rgba(15, 23, 42, 0.8);
+    --border: rgba(255, 255, 255, 0.1);
+    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* --- BASE STYLES --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg-main);
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(34, 211, 238, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(129, 140, 248, 0.05) 0px, transparent 50%);
+    color: var(--text-high);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* --- NAVIGATION (MODERN GLASS) --- */
+.navbar {
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    padding: 1.2rem 0;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-decoration: none;
+    color: var(--text-high);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo span {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: var(--text-low);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    transition: var(--transition);
+    text-transform: uppercase;
+}
+
+.nav-item:hover {
+    color: var(--primary);
+    text-shadow: 0 0 10px var(--primary-glow);
+}
+
+/* --- DROPDOWN (UPGRADED) --- */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-surface);
+    min-width: 240px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    overflow: hidden;
+    padding: 0.5rem;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    animation: fadeInUp 0.4s ease forwards;
+}
+
+.dropdown-content a {
+    color: var(--text-low);
+    padding: 12px 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    transition: var(--transition);
+}
+
+.dropdown-content a:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--primary);
+    transform: scale(1.02);
+}
+
+/* --- HOME HERO SECTION --- */
+.hero {
+    text-align: center;
+    padding: 8rem 0 4rem;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(to right, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.btn-glow {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: var(--bg-main);
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 800;
+    box-shadow: 0 0 20px var(--primary-glow);
+    transition: var(--transition);
+    display: inline-block;
+}
+
+.btn-glow:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 35px var(--primary-glow);
+}
+
+/* --- FOOTER --- */
+.footer {
+    padding: 4rem 0 2rem;
+    background: #010409;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translate(-50%, 20px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero h1 { font-size: 2.5rem; }
+}

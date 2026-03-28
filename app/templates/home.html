@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="home-hero">
+    <h1 class="display-1 fw-bold">Data with <span class="text-accent">Roots</span></h1>
+    <p class="lead">Exploring the Foundations of Machine Learning and Predictive Analytics.</p>
+    <div class="hero-divider"></div>
+</div>
+
+<section class="home-info grid-2">
+    <div class="info-card shadow">
+        <div class="icon-box"><i class="bi bi-lightbulb"></i></div>
+        <h3>Project Objective</h3>
+        <p>This web application is designed to demonstrate the practical application of <strong>Supervised Learning</strong>. Through interactive modules, we explore how data can be transformed into predictive power using <strong>Linear Regression</strong>.</p>
+    </div>
+
+    <div class="info-card shadow">
+        <div class="icon-box"><i class="bi bi-diagram-3"></i></div>
+        <h3>Technical Stack</h3>
+        <p>Built with <strong>Python & Flask</strong> for the backend, <strong>Scikit-learn</strong> for mathematical modeling, and <strong>HTML5/CSS3</strong> for a clean, responsive user experience.</p>
+    </div>
+</section>
+
+<section class="get-started text-center mt-5">
+    <h2>Ready to explore?</h2>
+    <p>Navigate through the menu to see real-world use cases or try our predictive model.</p>
+    <div class="btn-group">
+        <a href="/use-cases/sales" class="btn btn-primary">View Use Cases</a>
+        <a href="/application" class="btn btn-outline">Try Regression</a>
+    </div>
+</section>
+
+<style>
+    .home-hero {
+        text-align: center;
+        padding: 4rem 0;
+        background: linear-gradient(180deg, rgba(34, 211, 238, 0.05) 0%, transparent 100%);
+        border-radius: 20px;
+        margin-bottom: 3rem;
+    }
+    .text-accent { color: var(--accent-color); }
+    .hero-divider {
+        height: 4px;
+        width: 60px;
+        background: var(--accent-color);
+        margin: 1.5rem auto;
+        border-radius: 2px;
+    }
+    .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+    .info-card {
+        background: var(--bg-card);
+        padding: 2.5rem;
+        border-radius: 15px;
+        border: 1px solid rgba(255,255,255,0.05);
+        transition: transform 0.3s ease;
+    }
+    .info-card:hover { transform: translateY(-10px); }
+    .icon-box {
+        font-size: 2.5rem;
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+    }
+    .btn-group {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+    .btn {
+        padding: 0.8rem 2rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
+    }
+    .btn-primary {
+        background: var(--accent-color);
+        color: var(--primary-color);
+    }
+    .btn-outline {
+        border: 2px solid var(--accent-color);
+        color: var(--accent-color);
+    }
+    .btn:hover { opacity: 0.9; transform: scale(1.05); }
+</style>
+{% endblock %}
