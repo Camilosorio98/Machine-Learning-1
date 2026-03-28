@@ -20,10 +20,18 @@ app.register_blueprint(demand_bp)
 def home():
     return render_template('home.html')
 
-
 @app.route('/linear-regression')
 def linear_regression():
     return render_template('linear_regression.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
+            
+@app.route('/basic-concepts')
+def basic_concepts():
+    return render_template('basic_concepts.html')
+
+@app.route('/application')
+def application():
+    # Aquí es donde irá el formulario interactivo de la rúbrica
+    return render_template('application.html')

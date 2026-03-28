@@ -1,26 +1,60 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="hero" style="padding: 4rem 0 2rem;">
-        <h1 class="display-4 fw-bold">Linear <span style="background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Regression</span></h1>
-        <p class="text-low">Mathematical foundations and predictive analysis visualization.</p>
-      </div>
+<div class="hero" style="padding: 6rem 0 2rem; text-align: center;">
+    <h1 class="display-3 fw-bold">Linear <span style="background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Regression</span></h1>
+    <p class="text-low lead">Mathematical foundations and visual interpretation of predictive modeling.</p>
+</div>
 
-      <div class="grid-2 mt-4">
-        <div class="card shadow">
+<div class="grid-2 mt-4">
+    <div class="card shadow">
         <h3 style="color: var(--primary); margin-bottom: 1.5rem;">
-            <i class="bi bi- Mortarboard"></i> Theoretical Concept
+            <i class="bi bi-mortarboard-fill me-2"></i> The Theoretical Basis
         </h3>
-        <p>Linear regression is a <strong>Supervised Learning</strong> algorithm used to predict a continuous target variable (Y) based on one or more predictor variables (X).</p>
+        <p>Linear Regression is a <strong>Supervised Learning</strong> algorithm used to model the relationship between a dependent variable (Y) and one or more independent variables (X).</p>
         
-        <div style="background: rgba(34, 211, 238, 0.05); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); margin: 1.5rem 0; text-align: center;">
-            <p style="color: var(--text-low); font-size: 0.8rem; margin-bottom: 0.5rem; text-transform: uppercase;">Mathematical Model</p>
+        <div style="background: rgba(34, 211, 238, 0.05); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); margin: 2rem 0; text-align: center;">
+            <p style="color: var(--text-low); font-size: 0.8rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;">Mathematical Model</p>
             <code style="font-size: 1.8rem; color: var(--primary); font-family: 'Courier New', monospace;">
                 Y = β₀ + β₁X + ε
             </code>
-         </div>
+        </div>
         
-           <ul style="list-style: none; color: var(--text-low); font-size: 0.9rem;">
-            <li class="mb-2"><i class="bi bi-check2-circle text-primary"></i> <strong>β₀:</strong> Intercept (value of Y when X is 0).</li>
-            <li class="mb-2"><i class="bi bi-check2-circle text-primary">
-                {% endblock %}
+        <p class="text-low" style="font-size: 0.9rem;">
+            The model iteratively adjusts weights (coefficients) to minimize the prediction error, identifying the **Best Fit Line** through the data.
+        </p>
+    </div>
+
+    <div class="card shadow" style="display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(15, 23, 42, 0.95);">
+        <h3 style="color: var(--secondary); margin-bottom: 1.5rem; align-self: flex-start;">
+            <i class="bi bi-graph-up me-2"></i> Model Visualization
+        </h3>
+        
+        <div style="position: relative; width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.5); filter: drop-shadow(0 0 10px var(--primary-glow));">
+            <img src="{{ url_for('static', filename='img/graph.jpg') }}" 
+                 alt="Scatter Plot of Study Hours vs Grades" 
+                 style="width: 100%; height: auto; display: block; filter: brightness(0.9) contrast(1.05);">
+            
+            <div style="position: absolute; top: 10px; right: 10px; background: rgba(34, 211, 238, 0.1); color: var(--primary); font-size: 0.7rem; padding: 4px 10px; border-radius: 20px; font-weight: 800; text-transform: uppercase;">
+                Interactive Predictor Plot
+            </div>
+        </div>
+        
+        <p class="text-low" style="font-size: 0.85rem; margin-top: 1.5rem; text-align: center;">
+            The cyan dots represent individual data points (Hours, Grade). The <strong>Red Line</strong> is the model's prediction of the most likely grade for a given study hour.
+        </p>
+    </div>
+</div>
+
+<div class="card shadow mt-4" style="background: linear-gradient(145deg, var(--bg-surface), var(--bg-main));">
+    <div class="row align-items-center" style="display: flex; gap: 2rem; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 300px;">
+            <h3 class="text-primary mb-3">Core Application</h3>
+            <p class="text-low">This project implements **Ordinary Least Squares (OLS)** using Python's **Scikit-Learn** library. By analyzing the relationship between variables, our model allows for real-time predictions with high accuracy, optimizing decision-making in academic performance and resource allocation.</p>
+        </div>
+        <div style="text-align: center;">
+            <a href="/" class="btn-glow">Explore Use Cases</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
