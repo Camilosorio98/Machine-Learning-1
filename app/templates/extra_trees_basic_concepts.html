@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero" style="padding: 6rem 0 2rem; text-align: center;">
+    <h1 class="display-3 fw-bold">Extra Trees <span style="background: linear-gradient(90deg, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Classifier</span></h1>
+    <p class="text-low lead">Assigned Classification Model - Extremely Randomized Trees</p>
+</div>
+
+<div class="grid-2 mt-4">
+    <!-- INFO BÁSICA -->
+    <div class="card shadow">
+        <h3 style="color: #f59e0b; margin-bottom: 1rem;">What is Extra Trees?</h3>
+        <p>The <strong>Extra Trees Classifier</strong> is a supervised machine learning ensemble algorithm. It builds multiple decision trees (a "forest") and aggregates their predictions to improve accuracy and control over-fitting.</p>
+
+        <h3 style="color: #f59e0b; margin-top: 1.5rem; margin-bottom: 1rem;">How it Works (Characteristics)</h3>
+        <p>Unlike traditional Random Forest, which searches for the best feature split, Extra Trees selects split points <strong>completely at random</strong>. The final classification is determined by majority voting from all the randomly generated trees.</p>
+    </div>
+
+    <!-- VENTAJAS Y EJEMPLOS -->
+    <div class="card shadow">
+        <h3 style="color: #f59e0b; margin-bottom: 1rem;">Advantages & Limitations</h3>
+        <ul>
+            <li><i class="bi bi-check-circle" style="color: green;"></i> <strong>Computational Speed:</strong> Faster training due to random splitting.</li>
+            <li><i class="bi bi-check-circle" style="color: green;"></i> <strong>Low Variance:</strong> Highly resistant to noise and overfitting.</li>
+            <li><i class="bi bi-x-circle" style="color: red;"></i> <strong>Less Interpretable:</strong> Harder to visualize than a single decision tree.</li>
+        </ul>
+
+        <h3 style="color: #f59e0b; margin-top: 1.5rem; margin-bottom: 1rem;">Real-World Use Example</h3>
+        <p>We apply this algorithm to the <strong>Video Game Sales (1980-2024)</strong> dataset to classify whether a newly released game will achieve "High Sales" based on critic reviews and release timeline.</p>
+    </div>
+</div>
+{% endblock %}

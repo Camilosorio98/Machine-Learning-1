@@ -8,37 +8,32 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     
     <style>
-        /* Ajuste para que los submenús se vean como una lista dentro del cajón */
+        /* Estilos específicos para el submenú */
         .menu-seccion-titulo {
-            padding: 10px 16px 5px 16px;
-            color: var(--accent-color, #22d3ee);
-            font-weight: bold;
+            padding: 12px 16px 4px 16px;
+            color: var(--text-color, #ffffff);
+            font-weight: 600;
             font-size: 0.95rem;
-            text-transform: uppercase;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 5px;
-            margin-top: 5px;
-            cursor: default; /* No es clickeable, es solo el título */
+            cursor: default;
+        }
+
+        .dropdown-content {
+            min-width: 220px;
         }
 
         .dropdown-content a {
-            padding: 8px 16px 8px 25px; /* Más padding a la izquierda para indentar */
-            color: var(--text-color, #e2e8f0);
+            padding: 8px 16px 8px 24px;
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
             display: block;
             font-size: 0.9rem;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        .dropdown-content a i {
-            font-size: 0.7rem;
-            margin-right: 5px;
-            color: rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
         }
 
         .dropdown-content a:hover {
-            background-color: rgba(34, 211, 238, 0.1);
-            color: white;
+            color: var(--accent-color, #22d3ee);
+            background-color: rgba(255, 255, 255, 0.05);
+            padding-left: 28px;
         }
     </style>
 </head>
@@ -46,11 +41,14 @@
 
     <header class="navbar">
         <div class="nav-container">
+            <!-- LOGO -->
             <a href="/" class="logo">ML <span>PROJECT</span></a>
 
             <nav class="nav-links">
+                <!-- BOTÓN HOME -->
                 <a href="/" class="nav-item">HOME</a>
                 
+                <!-- MENÚ: ML USE CASES (Restaurado) -->
                 <div class="dropdown">
                     <span class="nav-item">ML USE CASES <i class="bi bi-chevron-down"></i></span>
                     <div class="dropdown-content">
@@ -61,20 +59,25 @@
                     </div>
                 </div>
 
-                <!-- SUPERVISED MACHINE LEARNING (Ajustado para lista plana con subtítulos) -->
+                <!-- MENÚ: SUPERVISED MACHINE LEARNING -->
                 <div class="dropdown">
                     <span class="nav-item">SUPERVISED MACHINE LEARNING <i class="bi bi-chevron-down"></i></span>
-                    <div class="dropdown-content" style="min-width: 260px;">
+                    <div class="dropdown-content">
                         
                         <!-- Categoría 1: Linear -->
                         <div class="menu-seccion-titulo">Linear Regression</div>
-                        <a href="/linear-regression/basic-concepts"><i class="bi bi-dot"></i> Basic Concepts</a>
-                        <a href="/linear-regression/application"><i class="bi bi-dot"></i> Application</a>
+                        <a href="/linear-regression/basic-concepts">Basic Concepts</a>
+                        <a href="/linear-regression/application">Application</a>
                         
                         <!-- Categoría 2: Logistic -->
-                        <div class="menu-seccion-titulo" style="margin-top: 10px;">Logistic Regression</div>
-                        <a href="/logistic-regression/basic-concepts"><i class="bi bi-dot"></i> Basic Concepts</a>
-                        <a href="/logistic-regression/application"><i class="bi bi-dot"></i> Application</a>
+                        <div class="menu-seccion-titulo" style="margin-top: 5px;">Logistic Regression</div>
+                        <a href="/logistic-regression/basic-concepts">Basic Concepts</a>
+                        <a href="/logistic-regression/application">Application</a>
+
+                        <!-- Categoría 3: Extra Trees -->
+                        <div class="menu-seccion-titulo" style="margin-top: 5px;">Extra Trees Classifier</div>
+                        <a href="/extra-trees/basic-concepts">Basic Concepts</a>
+                        <a href="/extra-trees/application">Application</a>
 
                     </div>
                 </div>

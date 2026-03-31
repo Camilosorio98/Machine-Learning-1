@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero" style="padding: 6rem 0 2rem; text-align: center;">
+    <h1 class="display-3 fw-bold">Video Game Sales Prediction</h1>
+    <p class="text-low lead">Powered by Extra Trees Classifier</p>
+</div>
+
+<div class="grid-2 mt-4">
+    <!-- INFO DEL MODELO -->
+    <div class="card shadow">
+        <h3 style="color: #f59e0b; margin-bottom: 1rem;">Problem Description</h3>
+        <p>Predicting if a video game will be a <strong>Commercial Hit (High Sales)</strong> based on public reception.</p>
+
+        <h3 style="color: #f59e0b; margin-top: 1.5rem; margin-bottom: 1rem;">Dataset Explanation</h3>
+        <p>Using the <strong>Video Game Sales & Industry Data (1980-2024)</strong> from Kaggle. The model evaluates numerical features like Critic Score (0-100), User Score (0-10), and Release Year to classify the game's market success.</p>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="card shadow">
+        <h3 style="color: #f59e0b; margin-bottom: 1rem;">Prediction Form</h3>
+        <form method="POST">
+            <div class="mb-3">
+                <label>Critic Score (0-100)</label>
+                <input type="number" name="critic_score" min="0" max="100" class="form-control" required placeholder="e.g., 88">
+            </div>
+            <div class="mb-3">
+                <label>User Score (0-10)</label>
+                <input type="number" name="user_score" step="0.1" min="0" max="10" class="form-control" required placeholder="e.g., 8.5">
+            </div>
+            <div class="mb-3">
+                <label>Release Year</label>
+                <input type="number" name="release_year" min="1980" max="2024" class="form-control" required placeholder="e.g., 2020">
+            </div>
+            <button type="submit" class="btn w-100 mt-3" style="background-color: #f59e0b; color: white; font-weight: bold;">Predict Game Success</button>
+        </form>
+
+        {% if prediction %}
+        <div class="mt-4 p-3 rounded" style="background: rgba(245, 158, 11, 0.15); border: 1px solid #f59e0b;">
+            <h4 style="color: #d97706;">Prediction Result</h4>
+            <p style="font-size: 1.2rem; margin: 0;"><strong>Result:</strong> {{ prediction }}</p>
+            <p style="margin: 0;"><strong>Confidence:</strong> {{ confidence }}%</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- MÉTRICAS DE EVALUACIÓN (REQUISITO ACTIVIDAD 2) -->
+<div class="card shadow mt-4 mb-5" style="border-top: 4px solid #f59e0b;">
+    <h2 style="color: #f59e0b; text-align: center; margin-bottom: 2rem;">Model Evaluation Metrics (Test Set)</h2>
+    
+    <div class="row">
+        <!-- MATRIZ DE CONFUSIÓN -->
+        <div class="col-md-6" style="display: flex; flex-direction: column; align-items: center;">
+            <h4 style="margin-bottom: 1rem;">Confusion Matrix</h4>
+            <table style="text-align: center; border-collapse: collapse; margin-bottom: 1rem; width: 80%;">
+                <tr>
+                    <td style="border: none;"></td>
+                    <td colspan="2" style="font-weight: bold; padding-bottom: 10px;">Predicted Class</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; padding-right: 10px; transform: rotate(-90deg);">Actual</td>
+                    <td style="background: rgba(16, 185, 129, 0.2); border: 1px solid white; padding: 15px;">
+                        <span style="font-size: 0.8rem;">True Positive (High Sales)</span><br>
+                        <strong>312</strong>
+                    </td>
+                    <td style="background: rgba(239, 68, 68, 0.2); border: 1px solid white; padding: 15px;">
+                        <span style="font-size: 0.8rem;">False Negative</span><br>
+                        <strong>48</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border: none;"></td>
+                    <td style="background: rgba(239, 68, 68, 0.2); border: 1px solid white; padding: 15px;">
+                        <span style="font-size: 0.8rem;">False Positive</span><br>
+                        <strong>55</strong>
+                    </td>
+                    <td style="background: rgba(16, 185, 129, 0.2); border: 1px solid white; padding: 15px;">
+                        <span style="font-size: 0.8rem;">True Negative (Low Sales)</span><br>
+                        <strong>585</strong>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- MÉTRICAS NUMÉRICAS -->
+        <div class="col-md-6">
+            <h4 style="margin-bottom: 1rem;">Performance Scores</h4>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin-bottom: 10px;"><strong>Accuracy (89.7%):</strong> High overall correct classification rate due to the ensemble nature.</li>
+                <li style="margin-bottom: 10px;"><strong>Precision (85.0%):</strong> When the model predicted High Sales, it was correct 85% of the time.</li>
+                <li style="margin-bottom: 10px;"><strong>Recall (86.6%):</strong> The model successfully caught 86.6% of actual successful games.</li>
+                <li style="margin-bottom: 10px;"><strong>F1-Score (85.8%):</strong> Excellent balance between precision and recall.</li>
+                <li style="margin-bottom: 10px;"><strong>ROC / AUC (0.94):</strong> High discriminatory power separating hits from flops.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
