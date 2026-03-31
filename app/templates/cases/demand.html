@@ -1,34 +1,502 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container py-5">
-    <div class="card shadow border-0 overflow-hidden">
-        <div class="card-header bg-info text-white p-4">
-            <h2 class="display-6 mb-0"><i class="bi bi-box-seam me-2"></i>{{ data.title }}</h2>
-        </div>
-        <div class="card-body p-4">
-            <h4 class="fw-bold">Operational Context</h4>
-            <p class="text-muted fs-5">{{ data.problem }}</p>
-            <hr>
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="p-4 bg-light rounded-3 h-100">
-                        <h5 class="text-info fw-bold">Algorithm Setup</h5>
-                        <ul class="list-unstyled mt-3 text-dark">
-                            <li class="mb-2"><strong>Method:</strong> {{ data.ml_type }}</li>
-                            <li class="mb-2"><strong>Dataset Variables:</strong> {{ data.inputs }}</li>
-                            <li class="mb-2"><strong>Predicted Demand:</strong> {{ data.outputs }}</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="p-4 bg-info bg-opacity-10 rounded-3 h-100 border border-info border-opacity-25">
-                        <h5 class="text-info fw-bold">Supply Chain Relevance</h5>
-                        <p class="mt-3 text-dark">{{ data.relevance }}</p>
-                    </div>
-                </div>
+<div style="max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem;">
+
+    <!-- ══════════════════════════════════════
+         HEADER
+    ══════════════════════════════════════ -->
+    <div style="
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    ">
+        <!-- Banner superior con imagen -->
+        <div style="
+            background: linear-gradient(135deg, rgba(34,211,238,0.15), rgba(129,140,248,0.1));
+            border-bottom: 1px solid var(--border);
+            padding: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        ">
+            <div style="flex: 1; min-width: 220px;">
+                <span style="
+                    background: rgba(34,211,238,0.15);
+                    color: var(--primary);
+                    border: 1px solid rgba(34,211,238,0.3);
+                    border-radius: 50px;
+                    padding: 0.3rem 1rem;
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;
+                    display: inline-block;
+                    margin-bottom: 1rem;
+                ">Use Case 4</span>
+
+                <h1 style="
+                    font-size: 1.8rem;
+                    font-weight: 800;
+                    background: linear-gradient(90deg, var(--primary), var(--secondary));
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    margin-bottom: 0.5rem;
+                    line-height: 1.3;
+                ">Customer Spending Prediction</h1>
+
+                <p style="color: var(--text-low); font-size: 0.9rem; margin: 0;">
+                    Supervised Learning · Linear Regression
+                </p>
+            </div>
+
+            <div style="flex: 0 0 auto; text-align: center;">
+                <img src="{{ url_for('static', filename='img/CASE_4/DASHBOARD_1.jpg') }}"
+                    alt="Dashboard"
+                    onclick="abrirLightbox(this.src, this.alt)"
+                    style="
+                        width: 100%;
+                        max-height: 260px;
+                        object-fit: cover;
+                        border-radius: 14px;
+                        border: 1px solid var(--border);
+                        cursor: zoom-in;
+                    ">
             </div>
         </div>
     </div>
+
+    <!-- ══════════════════════════════════════
+         PROBLEM DESCRIPTION
+    ══════════════════════════════════════ -->
+    <div style="
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    ">
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+            <div style="
+                background: rgba(34,211,238,0.1);
+                border: 1px solid rgba(34,211,238,0.2);
+                border-radius: 10px;
+                width: 36px; height: 36px;
+                display: flex; align-items: center; justify-content: center;
+                font-size: 1rem;
+            ">📋</div>
+            <h4 style="font-weight: 800; color: var(--text-high); margin: 0;">
+                Problem Description
+            </h4>
+        </div>
+        <p style="color: var(--text-low); line-height: 1.8; margin: 0;">
+            Companies need to estimate product demand to manage inventory and production effectively.
+            Incorrect demand estimation leads to overstocking, shortages, and financial losses.
+            This system predicts demand based on key market factors using a regression model.
+        </p>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         ALGORITHM SETUP + DATASET VARIABLES
+    ══════════════════════════════════════ -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+
+        <!-- Algorithm Setup -->
+        <div style="
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+        ">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                <div style="
+                    background: rgba(34,211,238,0.1);
+                    border: 1px solid rgba(34,211,238,0.2);
+                    border-radius: 10px;
+                    width: 36px; height: 36px;
+                    display: flex; align-items: center; justify-content: center;
+                ">⚙️</div>
+                <h5 style="font-weight: 800; color: var(--primary); margin: 0;">
+                    Algorithm Setup
+                </h5>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
+                <div style="
+                    background: var(--bg-accent);
+                    border-radius: 10px;
+                    padding: 0.75rem 1rem;
+                    display: flex; align-items: center; gap: 0.75rem;
+                ">
+                    <span style="color: var(--primary); font-size: 0.75rem; font-weight: 600; min-width: 50px;">TYPE</span>
+                    <span style="color: var(--text-low); font-size: 0.875rem;">Supervised Learning (Regression)</span>
+                </div>
+                <div style="
+                    background: var(--bg-accent);
+                    border-radius: 10px;
+                    padding: 0.75rem 1rem;
+                    display: flex; align-items: center; gap: 0.75rem;
+                ">
+                    <span style="color: var(--primary); font-size: 0.75rem; font-weight: 600; min-width: 50px;">MODEL</span>
+                    <span style="color: var(--text-low); font-size: 0.875rem;">Linear Regression</span>
+                </div>
+                <div style="
+                    background: var(--bg-accent);
+                    border-radius: 10px;
+                    padding: 0.75rem 1rem;
+                    display: flex; align-items: center; gap: 0.75rem;
+                ">
+                    <span style="color: var(--primary); font-size: 0.75rem; font-weight: 600; min-width: 50px;">GOAL</span>
+                    <span style="color: var(--text-low); font-size: 0.875rem;">Predict a continuous numeric demand value</span>
+                </div>
+            </div>
+
+            <!-- img-2 -->
+            <div style="text-align: center; border-top: 1px solid var(--border); padding-top: 1.25rem;">
+                <img src="{{ url_for('static', filename='img/CASE_4/img-2.png') }}"
+                    alt="Supervised Learning Diagram"
+                    onclick="abrirLightbox(this.src, this.alt)"
+                    style="max-width: 100%; max-height: 160px; object-fit: contain; border-radius: 8px; cursor: zoom-in;">
+            </div>
+        </div>
+
+        <!-- Dataset Variables -->
+        <div style="
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--primary);
+            border-radius: 20px;
+            padding: 2rem;
+        ">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                <div style="
+                    background: rgba(34,211,238,0.1);
+                    border: 1px solid rgba(34,211,238,0.2);
+                    border-radius: 10px;
+                    width: 36px; height: 36px;
+                    display: flex; align-items: center; justify-content: center;
+                ">🗄️</div>
+                <h5 style="font-weight: 800; color: var(--primary); margin: 0;">
+                    Dataset Variables
+                </h5>
+            </div>
+
+            <p style="color: var(--text-low); font-size: 0.8rem; margin-bottom: 1rem;">
+                Input features used by the model:
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1rem;">
+                {% for item in [
+                    ('🏷️', 'Product Price'),
+                    ('📢', 'Advertising Budget'),
+                    ('📅', 'Season Index')
+                ] %}
+                <div style="
+                    background: var(--bg-accent);
+                    border-radius: 10px;
+                    padding: 0.65rem 1rem;
+                    display: flex; align-items: center; gap: 0.75rem;
+                ">
+                    <span>{{ item[0] }}</span>
+                    <span style="color: var(--text-low); font-size: 0.875rem; flex: 1;">{{ item[1] }}</span>
+                    <span style="
+                        background: rgba(34,211,238,0.1);
+                        color: var(--primary);
+                        border-radius: 50px;
+                        padding: 0.15rem 0.6rem;
+                        font-size: 0.7rem;
+                        font-weight: 600;
+                    ">INPUT</span>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Output -->
+            <div style="
+                background: rgba(34,211,238,0.08);
+                border: 1px solid rgba(34,211,238,0.25);
+                border-radius: 12px;
+                padding: 1rem;
+                display: flex; align-items: center; gap: 0.75rem;
+            ">
+                <span style="font-size: 1.2rem;">🎯</span>
+                <div>
+                    <div style="color: var(--primary); font-weight: 700; font-size: 0.875rem;">
+                        Predicted Demand Value
+                    </div>
+                    <div style="color: var(--text-low); font-size: 0.75rem;">
+                        Output · Units required
+                    </div>
+                </div>
+                <span style="
+                    margin-left: auto;
+                    background: rgba(34,211,238,0.15);
+                    color: var(--primary);
+                    border-radius: 50px;
+                    padding: 0.15rem 0.6rem;
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                ">OUTPUT</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         HOW LINEAR REGRESSION WORKS
+    ══════════════════════════════════════ -->
+    <div style="
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    ">
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+            <div style="
+                background: rgba(34,211,238,0.1);
+                border: 1px solid rgba(34,211,238,0.2);
+                border-radius: 10px;
+                width: 36px; height: 36px;
+                display: flex; align-items: center; justify-content: center;
+            ">📐</div>
+            <h5 style="font-weight: 800; color: var(--text-high); margin: 0;">
+                How Linear Regression Works Here
+            </h5>
+        </div>
+
+        <p style="color: var(--text-low); margin-bottom: 1.5rem;">
+            The model learns a mathematical relationship between the input variables and the expected demand:
+        </p>
+
+        <!-- Fórmula -->
+        <div style="
+            background: #010d1a;
+            border: 1px solid rgba(34,211,238,0.3);
+            border-radius: 14px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        ">
+            <code style="
+                color: var(--primary);
+                font-size: 1rem;
+                font-family: 'Courier New', monospace;
+                letter-spacing: 0.5px;
+            ">
+                Demand = β₀ + β₁(Price) + β₂(Ad Budget) + β₃(Season Index)
+            </code>
+        </div>
+
+        <!-- img-3 -->
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+            <img src="{{ url_for('static', filename='img/CASE_4/img-3.png') }}"
+                alt="Regression Visual"
+                onclick="abrirLightbox(this.src, this.alt)"
+                style="
+                    max-width: 100%;
+                    max-height: 220px;
+                    object-fit: contain;
+                    border-radius: 12px;
+                    border: 1px solid var(--border);
+                    cursor: zoom-in;
+                ">
+        </div>
+
+        <div style="
+            background: rgba(34,211,238,0.06);
+            border-left: 3px solid var(--primary);
+            border-radius: 0 10px 10px 0;
+            padding: 1rem 1.25rem;
+        ">
+            <span style="color: var(--text-low); font-size: 0.875rem;">
+                💡 Each coefficient (β) is learned from historical data during training,
+                capturing how strongly each factor influences demand.
+            </span>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         img-4: Separador visual
+    ══════════════════════════════════════ -->
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <img src="{{ url_for('static', filename='img/CASE_4/img-4.png') }}"
+            alt="Demand Prediction Overview"
+            onclick="abrirLightbox(this.src, this.alt)"
+            style="
+                max-width: 100%;
+                max-height: 260px;
+                object-fit: contain;
+                border-radius: 16px;
+                border: 1px solid var(--border);
+                cursor: zoom-in;
+            ">
+    </div>
+
+    <!-- ══════════════════════════════════════
+         REAL-WORLD RELEVANCE
+    ══════════════════════════════════════ -->
+    <div style="
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    ">
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+            <div style="
+                background: rgba(34,211,238,0.1);
+                border: 1px solid rgba(34,211,238,0.2);
+                border-radius: 10px;
+                width: 36px; height: 36px;
+                display: flex; align-items: center; justify-content: center;
+            ">🌍</div>
+            <h5 style="font-weight: 800; color: var(--text-high); margin: 0;">
+                Real-World Relevance
+            </h5>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+
+            <!-- Card 1 -->
+            <div style="
+                background: rgba(34, 197, 94, 0.06);
+                border: 1px solid rgba(34, 197, 94, 0.2);
+                border-radius: 16px;
+                padding: 1.5rem;
+                text-align: center;
+            ">
+                <div style="font-size: 2rem; margin-bottom: 0.75rem;">📦</div>
+                <h6 style="color: #4ade80; font-weight: 700; margin-bottom: 0.5rem;">
+                    Production Planning
+                </h6>
+                <p style="color: var(--text-low); font-size: 0.8rem; margin: 0; line-height: 1.6;">
+                    Helps factories adjust production volumes based on predicted demand, reducing waste.
+                </p>
+            </div>
+
+            <!-- Card 2 -->
+            <div style="
+                background: rgba(234, 179, 8, 0.06);
+                border: 1px solid rgba(234, 179, 8, 0.2);
+                border-radius: 16px;
+                padding: 1.5rem;
+                text-align: center;
+            ">
+                <div style="font-size: 2rem; margin-bottom: 0.75rem;">⚠️</div>
+                <h6 style="color: #facc15; font-weight: 700; margin-bottom: 0.5rem;">
+                    Avoid Shortages
+                </h6>
+                <p style="color: var(--text-low); font-size: 0.8rem; margin: 0; line-height: 1.6;">
+                    Prevents stockouts by anticipating demand peaks during high-season periods.
+                </p>
+            </div>
+
+            <!-- Card 3 -->
+            <div style="
+                background: rgba(34,211,238,0.06);
+                border: 1px solid rgba(34,211,238,0.2);
+                border-radius: 16px;
+                padding: 1.5rem;
+                text-align: center;
+            ">
+                <div style="font-size: 2rem; margin-bottom: 0.75rem;">🏢</div>
+                <h6 style="color: var(--primary); font-weight: 700; margin-bottom: 0.5rem;">
+                    Reduce Storage Costs
+                </h6>
+                <p style="color: var(--text-low); font-size: 0.8rem; margin: 0; line-height: 1.6;">
+                    Optimizes warehouse usage by avoiding excess inventory that generates holding costs.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         FOOTER
+    ══════════════════════════════════════ -->
+    <div style="
+        text-align: center;
+        padding: 1.5rem;
+        border-top: 1px solid var(--border);
+        color: var(--text-low);
+        font-size: 0.8rem;
+    ">
+        ℹ️ Machine Learning · Supervised Regression · Linear Regression Model
+    </div>
+
 </div>
+<!-- ══════════════════════════════════════
+         LIGHTBOX — visor de imágenes
+    ══════════════════════════════════════ -->
+    <div id="lightbox" onclick="cerrarLightbox()" style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.92);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        cursor: zoom-out;
+        backdrop-filter: blur(6px);
+    ">
+        <!-- Botón cerrar -->
+        <div style="
+            position: absolute;
+            top: 1.25rem;
+            right: 1.5rem;
+            color: var(--text-low);
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s;
+        " onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-low)'">✕</div>
+
+        <!-- Imagen ampliada -->
+        <img id="lightbox-img" src="" alt=""
+             onclick="event.stopPropagation()"
+             style="
+                 max-width: 90vw;
+                 max-height: 88vh;
+                 object-fit: contain;
+                 border-radius: 14px;
+                 border: 1px solid var(--border);
+                 box-shadow: 0 0 60px rgba(34,211,238,0.15);
+                 cursor: default;
+             ">
+
+        <!-- Hint -->
+        <div style="
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-low);
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        ">Click outside or press Esc to close</div>
+    </div>
+
+    <script>
+        // Abrir lightbox
+        function abrirLightbox(src, alt) {
+            const lb = document.getElementById('lightbox');
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-img').alt = alt;
+            lb.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Cerrar lightbox
+        function cerrarLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        // Cerrar con tecla Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') cerrarLightbox();
+        });
+    </script>
 {% endblock %}
