@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero" style="padding: 6rem 0 2rem; text-align: center;">
+    <h1 class="display-3 fw-bold">Logistic Regression</h1>
+    <p class="text-low lead">Student Pass/Fail Prediction</p>
+</div>
+
+<div class="grid-2 mt-4">
+    <div class="card shadow">
+        <h3 style="color: var(--primary); margin-bottom: 1rem;">Problem Description</h3>
+        <p>This application predicts whether a student will pass or fail based on study hours, attendance, and GPA.</p>
+
+        <h3 style="color: var(--primary); margin-top: 1.5rem; margin-bottom: 1rem;">Dataset Explanation</h3>
+        <p>The dataset contains labeled student records used to train a binary classification model.</p>
+
+        <h3 style="color: var(--primary); margin-top: 1.5rem; margin-bottom: 1rem;">Model Interpretation</h3>
+        <p>If the probability is greater than 0.5, the result is <strong>PASS</strong>; otherwise, the result is <strong>FAIL</strong>.</p>
+    </div>
+
+    <div class="card shadow">
+        <h3 style="color: var(--primary); margin-bottom: 1rem;">Prediction Form</h3>
+        <form method="POST">
+            <div class="mb-3">
+                <label>Study Hours</label>
+                <input type="number" name="study_hours" step="0.1" min="0" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Attendance (%)</label>
+                <input type="number" name="attendance" step="0.1" min="0" max="100" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Predict</button>
+        </form>
+
+        {% if prediction %}
+        <div class="mt-4 p-3 rounded" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4);">
+            <h4>Prediction Result</h4>
+            <p><strong>Result:</strong> {{ prediction }}</p>
+            <p><strong>Confidence:</strong> {{ confidence }}%</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

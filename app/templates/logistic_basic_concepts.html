@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero" style="padding: 6rem 0 2rem; text-align: center;">
+    <h1 class="display-3 fw-bold">Logistic Regression</h1>
+    <p class="text-low lead">Basic Concepts - Binary Classification</p>
+</div>
+
+<div class="grid-2 mt-4">
+    <div class="card shadow">
+        <h3 style="color: var(--primary); margin-bottom: 1rem;">What is Logistic Regression?</h3>
+        <p>Logistic regression is a supervised learning algorithm used for binary classification. It predicts the probability that an input belongs to one of two classes.</p>
+
+        <h3 style="color: var(--primary); margin-top: 1.5rem; margin-bottom: 1rem;">Variables</h3>
+        <p><strong>Independent variables:</strong> Study hours, attendance, and GPA.</p>
+        <p><strong>Dependent variable:</strong> Pass or fail.</p>
+    </div>
+
+    <div class="card shadow">
+        <h3 style="color: var(--primary); margin-bottom: 1rem;">Sigmoid Function</h3>
+        <p style="font-size: 1.3rem; font-family: 'Courier New', monospace;">
+            P(Y=1) = 1 / (1 + e^-(β₀ + β₁X))
+        </p>
+
+        <h3 style="color: var(--primary); margin-top: 1.5rem; margin-bottom: 1rem;">Main Concepts</h3>
+        <ul>
+            <li>Probability output between 0 and 1</li>
+            <li>Threshold commonly set at 0.5</li>
+            <li>Used for yes/no or pass/fail problems</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
