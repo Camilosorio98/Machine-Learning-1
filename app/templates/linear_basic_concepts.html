@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero" style="padding: 6rem 0 2rem; text-align: center;">
+    <h1 class="display-3 fw-bold">Linear Regression</h1>
+    <p class="text-low lead">Basic Concepts - Predicting Continuous Values</p>
+</div>
+
+<div class="grid-2 mt-4">
+    <div class="card shadow">
+        <h3 style="color: var(--primary); margin-bottom: 1rem;">What is Linear Regression?</h3>
+        <p>Linear regression is a supervised learning algorithm used to predict a continuous value based on one or more input variables.</p>
+
+        <h3 style="color: var(--primary); margin-top: 1.5rem; margin-bottom: 1rem;">Variables</h3>
+        <p><strong>Independent variable (X):</strong> Input data used for prediction.</p>
+        <p><strong>Dependent variable (Y):</strong> Output value predicted by the model.</p>
+    </div>
+
+    <div class="card shadow">
+        <h3 style="color: var(--primary); margin-bottom: 1rem;">Linear Equation</h3>
+        <p style="font-size: 1.4rem; font-family: 'Courier New', monospace;">
+            Y = β₀ + β₁X + ε
+        </p>
+
+        <h3 style="color: var(--primary); margin-top: 1.5rem; margin-bottom: 1rem;">Main Concepts</h3>
+        <ul>
+            <li><strong>β₀:</strong> Intercept</li>
+            <li><strong>β₁:</strong> Slope</li>
+            <li><strong>ε:</strong> Error term</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero" style="padding: 6rem 0 2rem; text-align: center;">
+    <h1 class="display-3 fw-bold">Linear Regression</h1>
+    <p class="text-low lead">Application - Student Grade Prediction</p>
+</div>
+
+<div class="grid-2 mt-4">
+    <div class="card shadow">
+        <h3 style="color: var(--primary); margin-bottom: 1rem;">Problem Description</h3>
+        <p>Predict a student’s grade based on the number of study hours.</p>
+
+        <h3 style="color: var(--primary); margin-top: 1.5rem; margin-bottom: 1rem;">Dataset Explanation</h3>
+        <p>This example uses a simple numeric dataset that shows the relationship between study hours and final grade.</p>
+
+        <h3 style="color: var(--primary); margin-top: 1.5rem; margin-bottom: 1rem;">Regression Visualization</h3>
+        <img src="{{ url_for('static', filename='img/graph.jpg') }}" alt="Regression graph" style="width: 100%; border-radius: 12px;">
+    </div>
+
+    <div class="card shadow">
+        <h3 style="color: var(--primary); margin-bottom: 1rem;">Prediction Form</h3>
+        <form>
+            <div class="mb-3">
+                <label>Study Hours</label>
+                <input type="number" class="form-control" step="0.1" placeholder="Enter study hours">
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Predict Grade</button>
+        </form>
+
+        <div class="mt-4 p-3 rounded" style="background: rgba(34, 211, 238, 0.08);">
+            <p><strong>Example Result:</strong> 8 study hours → predicted grade around 85</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
