@@ -12,37 +12,37 @@ def application():
     confidence = None
     
     if request.method == 'POST':
-        # Capturamos datos del formulario
-        critic_score = float(request.form['critic_score']) # Escala 0-100
-        user_score = float(request.form['user_score'])     # Escala 0-10
+        # We captured data from the form
+        critic_score = float(request.form['critic_score']) # scale 0-100
+        user_score = float(request.form['user_score'])     # scale 0-10
         release_year = int(request.form['release_year'])
         
-        # --- SIMULACIÓN DE EXTRA TREES CLASSIFIER ---
-        # Extra Trees es un ensamble. Simulamos el voto de 100 árboles de decisión
-        # usando cortes aleatorios (random splits) típicos del algoritmo Extra Trees
+        # --- SIMULATION OF EXTRA TREES CLASSIFIER ---
+        # Extra Trees is an ensemble. We simulate the voting of 100 decision trees
+        # using random splits typical of the Extra Trees algorithm
         
         votes_for_hit = 0
         total_trees = 100
         
-        # Árboles evaluando Critic Score (pesa mucho en ventas)
+        # Trees evaluating Critical Score (weighs heavily on sales)
         if critic_score >= 85: votes_for_hit += 40
         elif critic_score >= 70: votes_for_hit += 15
         else: votes_for_hit += 2
             
-        # Árboles evaluando User Score
+        # Trees evaluating User Score
         if user_score >= 8.5: votes_for_hit += 30
         elif user_score >= 7.0: votes_for_hit += 10
         else: votes_for_hit += 1
             
-        # Árboles evaluando el Año (los juegos modernos tienen mercados más grandes)
+        # Trees evaluating the Year (modern games have larger markets)
         if release_year >= 2015: votes_for_hit += 20
         elif release_year >= 2000: votes_for_hit += 10
         else: votes_for_hit += 5
             
-        # Extra Trees calcula la probabilidad basada en la mayoría de votos
+        # Extra Trees calculates the probability based on the majority of votes
         probability_hit = votes_for_hit / total_trees
         
-        # Threshold de clasificación: 0.5
+        # Classification threshold: 0.5
         if probability_hit >= 0.5:
             prediction = 'HIGH SALES (Commercial Hit)'
             confidence = probability_hit * 100
@@ -50,7 +50,7 @@ def application():
             prediction = 'LOW/MEDIUM SALES'
             confidence = (1 - probability_hit) * 100
             
-        # Evitar 100% perfecto para mayor realismo
+        # Avoid 100% perfection for greater realism
         confidence = min(max(confidence, 51.2), 98.7)
             
         return render_template('extra_trees_application.html', 
