@@ -1,9 +1,12 @@
+# from app.models import models
 from flask import Flask, render_template
 # Importamos cada uno de los controladores (Blueprints)
+import Clustering
 from app.controllers.sales_controller import sales_bp
 from app.controllers.price_controller import price_bp
 from app.controllers.spending_controller import spending_bp
 from app.controllers.demand_controller import demand_bp
+
 
 app = Flask(__name__, 
             template_folder='app/templates', 
@@ -35,3 +38,8 @@ def basic_concepts():
 def application():
     # Aquí es donde irá el formulario interactivo de la rúbrica
     return render_template('application.html')
+
+@app.route('/models/clustering')
+def clustering ():
+    data = Clustering.applyClustering()
+    return str(data["result"])
