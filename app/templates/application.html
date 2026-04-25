@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero" style="padding: 6rem 0 2rem; text-align: center;">
+    <h1 class="display-3 fw-bold">Application</h1>
+    <p class="text-low lead">Student Pass/Fail Prediction with Logistic Regression</p>
+</div>
+
+<div class="grid-2 mt-4">
+    <div class="card shadow">
+        <h3 style="color: var(--primary); margin-bottom: 1rem;">Problem Description</h3>
+        <p>This application predicts whether a student will <strong>pass or fail</strong> based on study hours and attendance data using a trained logistic regression model.</p>
+        <h3 style="color: var(--primary); margin-top: 1.5rem; margin-bottom: 1rem;">Dataset</h3>
+        <p>1,000 student records with study hours, attendance, GPA, and pass/fail labels. Model accuracy: 85%+.</p>
+    </div>
+
+    <div class="card shadow">
+        <h3 style="color: var(--primary); margin-bottom: 1rem;">Prediction Form</h3>
+        <form method="POST">
+            <div class="mb-3">
+                <label>Study Hours per Week</label>
+                <input type="number" name="study_hours" step="0.1" min="0" max="50" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Attendance Percentage</label>
+                <input type="number" name="attendance" step="0.1" min="0" max="100" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mt-3">Predict Pass/Fail</button>
+        </form>
+        
+        {% if prediction %}
+        <div class="mt-4 p-3 rounded" style="background: linear-gradient(135deg, #10b981, #059669); color: white;">
+            <h4><i class="bi bi-check-circle"></i> Prediction Result</h4>
+            <h2>{{ prediction }}</h2>
+            <p>Confidence: {{ confidence }}%</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
