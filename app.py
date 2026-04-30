@@ -9,6 +9,7 @@ from app.controllers.extra_trees_controller import extra_trees_bp
 from app.controllers.clustering_controller import clustering_bp
 
 app = Flask(__name__, template_folder='app/templates', static_folder='app/static')
+app.jinja_env.globals.update(enumerate=enumerate)
 
 app.register_blueprint(sales_bp)
 app.register_blueprint(price_bp)
@@ -25,5 +26,3 @@ def home():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
