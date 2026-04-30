@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero" style="padding: 6rem 0 2rem; text-align: center;">
+    <h1 class="display-3 fw-bold">Manual <span style="background: linear-gradient(90deg, #22d3ee, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">K-Means</span> Exercise</h1>
+    <p class="text-low lead">Step-by-step simulation with 100 records — 3 iterations</p>
+</div>
+
+<!-- DATASET DESCRIPTION -->
+<div class="card shadow mt-2" style="border-left:4px solid #22d3ee;">
+    <h2 style="color:#22d3ee; margin-bottom:1rem;">Dataset Description</h2>
+    <div class="grid-2">
+        <div>
+            <p>The dataset contains <strong>100 synthetic customer records</strong> with two numerical features:</p>
+            <ul style="padding-left:1.2rem; line-height:2.2; margin-top:0.5rem;">
+                <li><strong style="color:#22d3ee;">Age</strong> — Customer age in years (18–70)</li>
+                <li><strong style="color:#10b981;">Annual Income (USD)</strong> — Estimated yearly income</li>
+            </ul>
+            <p style="margin-top:1rem;">Three natural groups exist: young low-income customers, mid-age mid-income, and senior high-income customers.</p>
+        </div>
+        <div>
+            <h3 style="color:#10b981; margin-bottom:1rem;">Initial Centroids (Manually Selected)</h3>
+            <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+                <thead>
+                    <tr style="background:rgba(34,211,238,0.1);">
+                        <th style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Centroid</th>
+                        <th style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Age</th>
+                        <th style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Income (USD)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i, c in [(1, data.iterations[0].centroids[0]), (2, data.iterations[0].centroids[1]), (3, data.iterations[0].centroids[2])] %}
+                    <tr style="background:rgba(255,255,255,0.03);">
+                        <td style="padding:8px; border:1px solid rgba(255,255,255,0.1); color:#22d3ee; font-weight:600;">C{{ i }}</td>
+                        <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">{{ c[0] }}</td>
+                        <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">${{ c[1] | int }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ITERATIONS -->
+{% for it_num in range(3) %}
+{% set it = data.iterations[it_num] %}
+<div class="card shadow mt-4" style="border-top: 3px solid {% if it_num == 0 %}#22d3ee{% elif it_num == 1 %}#10b981{% else %}#f59e0b{% endif %};">
+    <h2 style="color:{% if it_num == 0 %}#22d3ee{% elif it_num == 1 %}#10b981{% else %}#f59e0b{% endif %}; margin-bottom:0.5rem;">
+        Iteration {{ it_num + 1 }}
+    </h2>
+    <p style="color:#94a3b8; margin-bottom:1.5rem; font-size:0.9rem;">
+        Centroids used: C1({{ it.centroids[0][0] }}, ${{ it.centroids[0][1]|int }}) &nbsp;|&nbsp;
+        C2({{ it.centroids[1][0] }}, ${{ it.centroids[1][1]|int }}) &nbsp;|&nbsp;
+        C3({{ it.centroids[2][0] }}, ${{ it.centroids[2][1]|int }}) &nbsp;&nbsp;
+        <strong style="color:#f59e0b;">Variance: {{ "{:,.0f}".format(it.variance) }}</strong>
+    </p>
+
+    <div style="overflow-x:auto; max-height:320px; overflow-y:auto;">
+        <table style="width:100%; border-collapse:collapse; font-size:0.82rem;">
+            <thead style="position:sticky; top:0; z-index:1;">
+                <tr style="background:rgba(15,23,42,0.95);">
+                    <th style="padding:8px; border:1px solid rgba(255,255,255,0.1);">#</th>
+                    <th style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Age</th>
+                    <th style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Income</th>
+                    <th style="padding:8px; border:1px solid rgba(255,255,255,0.1); color:#22d3ee;">D to C1</th>
+                    <th style="padding:8px; border:1px solid rgba(255,255,255,0.1); color:#10b981;">D to C2</th>
+                    <th style="padding:8px; border:1px solid rgba(255,255,255,0.1); color:#f59e0b;">D to C3</th>
+                    <th style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Cluster</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i, row in enumerate(it.table) %}
+                <tr style="background: {% if row.cluster == 1 %}rgba(34,211,238,0.05){% elif row.cluster == 2 %}rgba(16,185,129,0.05){% else %}rgba(245,158,11,0.05){% endif %}">
+                    <td style="padding:6px 8px; border:1px solid rgba(255,255,255,0.07); color:#94a3b8;">{{ i+1 }}</td>
+                    <td style="padding:6px 8px; border:1px solid rgba(255,255,255,0.07);">{{ row.age }}</td>
+                    <td style="padding:6px 8px; border:1px solid rgba(255,255,255,0.07);">${{ row.income | int }}</td>
+                    <td style="padding:6px 8px; border:1px solid rgba(255,255,255,0.07); {% if row.cluster == 1 %}color:#22d3ee; font-weight:600;{% endif %}">{{ row.d1 }}</td>
+                    <td style="padding:6px 8px; border:1px solid rgba(255,255,255,0.07); {% if row.cluster == 2 %}color:#10b981; font-weight:600;{% endif %}">{{ row.d2 }}</td>
+                    <td style="padding:6px 8px; border:1px solid rgba(255,255,255,0.07); {% if row.cluster == 3 %}color:#f59e0b; font-weight:600;{% endif %}">{{ row.d3 }}</td>
+                    <td style="padding:6px 8px; border:1px solid rgba(255,255,255,0.07); font-weight:700; color:{% if row.cluster == 1 %}#22d3ee{% elif row.cluster == 2 %}#10b981{% else %}#f59e0b{% endif %};">
+                        C{{ row.cluster }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Updated centroids -->
+    <div style="margin-top:1.5rem; padding:1rem; background:rgba(255,255,255,0.03); border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
+        <strong style="color:#94a3b8;">Updated Centroids after Iteration {{ it_num + 1 }}:</strong>
+        <div style="display:flex; gap:2rem; margin-top:0.6rem; flex-wrap:wrap;">
+            {% for k in range(3) %}
+            <span style="color:{% if k==0 %}#22d3ee{% elif k==1 %}#10b981{% else %}#f59e0b{% endif %}; font-size:0.9rem;">
+                C{{ k+1 }}: ({{ it.new_centroids[k][0] }}, ${{ it.new_centroids[k][1]|int }})
+            </span>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<!-- VARIANCE CHART -->
+<div class="card shadow mt-4" style="border-top:4px solid #a855f7;">
+    <h2 style="color:#a855f7; text-align:center; margin-bottom:1.5rem;">Variance Reduction Across Iterations</h2>
+    <div style="display:flex; justify-content:center;">
+        <img src="data:image/png;base64,{{ data.variance_chart }}" style="max-width:700px; width:100%; border-radius:12px;">
+    </div>
+    <div style="display:flex; justify-content:center; gap:2rem; margin-top:1.5rem; flex-wrap:wrap;">
+        {% for i, v in enumerate(data.variance_per_iter) %}
+        <div style="text-align:center;">
+            <div style="font-size:1.4rem; font-weight:700; color:#22d3ee;">{{ "{:,.0f}".format(v) }}</div>
+            <div style="color:#94a3b8; font-size:0.85rem;">Iteration {{ i+1 }} Variance</div>
+        </div>
+        {% endfor %}
+        <div style="text-align:center;">
+            <div style="font-size:1.4rem; font-weight:700; color:#10b981;">
+                {{ "{:.1f}".format((1 - data.variance_per_iter[2] / data.variance_per_iter[0]) * 100) }}%
+            </div>
+            <div style="color:#94a3b8; font-size:0.85rem;">Total Reduction</div>
+        </div>
+    </div>
+
+    <!-- Interpretation -->
+    <div style="margin-top:2rem; padding:1.5rem; background:rgba(168,85,247,0.08); border-radius:10px; border:1px solid rgba(168,85,247,0.2);">
+        <h3 style="color:#a855f7; margin-bottom:1rem;">Interpretation of Results</h3>
+        <p>Across the three iterations, the K-Means algorithm successfully reduced the within-cluster variance from <strong>{{ "{:,.0f}".format(data.variance_per_iter[0]) }}</strong> to <strong>{{ "{:,.0f}".format(data.variance_per_iter[2]) }}</strong>. This demonstrates that the algorithm progressively refined the cluster assignments, moving centroids closer to the true centers of each natural group in the data. The three identified clusters correspond to distinct customer segments: <strong>young low-income</strong>, <strong>mid-age mid-income</strong>, and <strong>senior high-income</strong> customers.</p>
+    </div>
+</div>
+
+<div style="display:flex; gap:1rem; justify-content:center; margin:3rem 0;">
+    <a href="/clustering/application" style="padding:0.9rem 2rem; background:linear-gradient(135deg,#22d3ee,#10b981); border:none; border-radius:10px; color:#0f172a; font-weight:700; text-decoration:none; font-size:1rem;">
+        <i class="bi bi-diagram-3"></i> Full Clustering App →
+    </a>
+</div>
+{% endblock %}
