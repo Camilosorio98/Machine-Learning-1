@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero" style="padding: 6rem 0 2rem; text-align: center;">
+    <h1 class="display-3 fw-bold">Clustering <span style="background: linear-gradient(90deg, #22d3ee, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Application</span></h1>
+    <p class="text-low lead">K-Means on 1,000 Customer Records — Scikit-learn Implementation</p>
+</div>
+
+<!-- CONTEXT + DATASET -->
+<div class="grid-2 mt-4">
+    <div class="card shadow">
+        <h3 style="color:#22d3ee; margin-bottom:1rem;">Problem Context</h3>
+        <p>A retail company wants to <strong>segment its customers</strong> based on their age and annual spending behavior. By identifying distinct customer groups, the company can design targeted marketing strategies, personalized offers, and optimized inventory decisions.</p>
+        <p style="margin-top:1rem;">This application uses the <strong>K-Means algorithm</strong> (k=3) to automatically discover three natural customer segments from 1,000 records.</p>
+
+        <h3 style="color:#22d3ee; margin-top:1.5rem; margin-bottom:1rem;">Data Preprocessing</h3>
+        <p>Features are standardized using <code>StandardScaler</code> before training. This ensures that age and income (which have different units and scales) contribute equally to the distance calculation.</p>
+    </div>
+
+    <div class="card shadow">
+        <h3 style="color:#10b981; margin-bottom:1rem;">Dataset Explanation</h3>
+        <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+            <tbody>
+                <tr style="background:rgba(34,211,238,0.05);">
+                    <td style="padding:10px; border:1px solid rgba(255,255,255,0.1); color:#94a3b8;">Records</td>
+                    <td style="padding:10px; border:1px solid rgba(255,255,255,0.1); font-weight:700;">{{ data.total }} customers</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px; border:1px solid rgba(255,255,255,0.1); color:#94a3b8;">Feature 1</td>
+                    <td style="padding:10px; border:1px solid rgba(255,255,255,0.1);">Age (18–70 years)</td>
+                </tr>
+                <tr style="background:rgba(34,211,238,0.05);">
+                    <td style="padding:10px; border:1px solid rgba(255,255,255,0.1); color:#94a3b8;">Feature 2</td>
+                    <td style="padding:10px; border:1px solid rgba(255,255,255,0.1);">Annual Spending (USD 500–15,000)</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px; border:1px solid rgba(255,255,255,0.1); color:#94a3b8;">Target</td>
+                    <td style="padding:10px; border:1px solid rgba(255,255,255,0.1);">None (unsupervised)</td>
+                </tr>
+                <tr style="background:rgba(34,211,238,0.05);">
+                    <td style="padding:10px; border:1px solid rgba(255,255,255,0.1); color:#94a3b8;">Algorithm</td>
+                    <td style="padding:10px; border:1px solid rgba(255,255,255,0.1);">K-Means (k=3, Scikit-learn)</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px; border:1px solid rgba(255,255,255,0.1); color:#94a3b8;">Scaler</td>
+                    <td style="padding:10px; border:1px solid rgba(255,255,255,0.1);">StandardScaler</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- SCATTER PLOT -->
+<div class="card shadow mt-4" style="border-top:4px solid #22d3ee;">
+    <h2 style="color:#22d3ee; text-align:center; margin-bottom:1.5rem;">
+        <i class="bi bi-diagram-3"></i> Cluster Visualization
+    </h2>
+    <div style="display:flex; justify-content:center;">
+        <img src="data:image/png;base64,{{ data.scatter_chart }}" style="max-width:900px; width:100%; border-radius:12px;">
+    </div>
+</div>
+
+<!-- CLUSTER SUMMARY -->
+<div class="card shadow mt-4" style="border-top:4px solid #10b981;">
+    <h2 style="color:#10b981; text-align:center; margin-bottom:1.5rem;">Cluster Summary</h2>
+    <div style="display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center;">
+        {% set cluster_colors = ['#22d3ee','#10b981','#f59e0b'] %}
+        {% set cluster_labels = ['Young Low-Income','Mid-Age Mid-Income','Senior High-Income'] %}
+        {% for row in data.cluster_summary %}
+        <div class="card" style="flex:1; min-width:220px; border-left:4px solid {{ cluster_colors[loop.index0] }}; text-align:center;">
+            <div style="font-size:2rem; font-weight:800; color:{{ cluster_colors[loop.index0] }};">C{{ row.cluster }}</div>
+            <div style="color:#94a3b8; font-size:0.85rem; margin-bottom:0.8rem;">{{ cluster_labels[loop.index0] }}</div>
+            <div style="font-size:1.5rem; font-weight:700;">{{ row.count }}</div>
+            <div style="color:#94a3b8; font-size:0.8rem; margin-bottom:0.5rem;">customers</div>
+            <div style="font-size:1rem;">Avg Age: <strong>{{ row.avg_age }}</strong></div>
+            <div style="font-size:1rem;">Avg Spending: <strong>${{ "{:,.0f}".format(row.avg_spending) }}</strong></div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- CENTROIDS -->
+<div class="card shadow mt-4" style="border-top:4px solid #f59e0b;">
+    <h2 style="color:#f59e0b; margin-bottom:1.5rem;">Final Centroids</h2>
+    <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+        <thead>
+            <tr style="background:rgba(245,158,11,0.1);">
+                <th style="padding:12px; border:1px solid rgba(255,255,255,0.1);">Cluster</th>
+                <th style="padding:12px; border:1px solid rgba(255,255,255,0.1);">Centroid Age</th>
+                <th style="padding:12px; border:1px solid rgba(255,255,255,0.1);">Centroid Annual Spending</th>
+                <th style="padding:12px; border:1px solid rgba(255,255,255,0.1);">Profile</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set profiles = ['Young customers with limited income','Working adults with moderate spending','Established professionals, high spending'] %}
+            {% for c in data.centers %}
+            <tr style="background:rgba(255,255,255,0.02);">
+                <td style="padding:10px; border:1px solid rgba(255,255,255,0.07); font-weight:700; color:{{ cluster_colors[loop.index0] }};">Cluster {{ c.cluster }}</td>
+                <td style="padding:10px; border:1px solid rgba(255,255,255,0.07);">{{ c.age }} yrs</td>
+                <td style="padding:10px; border:1px solid rgba(255,255,255,0.07);">${{ "{:,.0f}".format(c.annual_spending) }}</td>
+                <td style="padding:10px; border:1px solid rgba(255,255,255,0.07); color:#94a3b8; font-size:0.88rem;">{{ profiles[loop.index0] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- SAMPLE TABLE -->
+<div class="card shadow mt-4">
+    <h2 style="color:#22d3ee; margin-bottom:1.5rem;">Sample of Assigned Records (20 of {{ data.total }})</h2>
+    <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; font-size:0.88rem;">
+            <thead>
+                <tr style="background:rgba(34,211,238,0.1);">
+                    <th style="padding:10px; border:1px solid rgba(255,255,255,0.1);">#</th>
+                    <th style="padding:10px; border:1px solid rgba(255,255,255,0.1);">Age</th>
+                    <th style="padding:10px; border:1px solid rgba(255,255,255,0.1);">Annual Spending (USD)</th>
+                    <th style="padding:10px; border:1px solid rgba(255,255,255,0.1);">Assigned Cluster</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i, row in enumerate(data.sample) %}
+                <tr style="background:rgba(255,255,255,0.02);">
+                    <td style="padding:8px; border:1px solid rgba(255,255,255,0.07); color:#94a3b8;">{{ i+1 }}</td>
+                    <td style="padding:8px; border:1px solid rgba(255,255,255,0.07);">{{ row.age }}</td>
+                    <td style="padding:8px; border:1px solid rgba(255,255,255,0.07);">${{ "{:,.0f}".format(row.annual_spending) }}</td>
+                    <td style="padding:8px; border:1px solid rgba(255,255,255,0.07); font-weight:700; color:{{ cluster_colors[row.cluster - 1] }};">
+                        Cluster {{ row.cluster }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- INTERPRETATION -->
+<div class="card shadow mt-4 mb-5" style="border-top:4px solid #a855f7;">
+    <h2 style="color:#a855f7; margin-bottom:1rem;">Interpretation of Results</h2>
+    <p>The K-Means algorithm with <strong>k=3</strong> successfully identified three distinct customer segments from the 1,000-record dataset:</p>
+    <div style="display:flex; flex-direction:column; gap:1rem; margin-top:1.2rem;">
+        <div style="padding:1rem; background:rgba(34,211,238,0.07); border-radius:8px; border-left:3px solid #22d3ee;">
+            <strong style="color:#22d3ee;">Cluster 1 — Young Low-Income Customers:</strong>
+            <p style="margin-top:0.4rem;">Younger customers (avg ~22 yrs) with low annual spending (~$1,800). This group may benefit from entry-level products, student discounts, and loyalty programs to build long-term relationships.</p>
+        </div>
+        <div style="padding:1rem; background:rgba(16,185,129,0.07); border-radius:8px; border-left:3px solid #10b981;">
+            <strong style="color:#10b981;">Cluster 2 — Mid-Age Mid-Income Customers:</strong>
+            <p style="margin-top:0.4rem;">Working adults (avg ~35 yrs) with moderate spending (~$5,500). This segment represents the largest group and responds well to premium mid-range offers and subscription services.</p>
+        </div>
+        <div style="padding:1rem; background:rgba(245,158,11,0.07); border-radius:8px; border-left:3px solid #f59e0b;">
+            <strong style="color:#f59e0b;">Cluster 3 — Senior High-Income Customers:</strong>
+            <p style="margin-top:0.4rem;">Established customers (avg ~52 yrs) with the highest spending (~$9,500). These high-value clients should receive VIP treatment, exclusive products, and personalized service.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

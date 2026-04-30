@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero" style="padding: 6rem 0 2rem; text-align: center;">
+    <h1 class="display-3 fw-bold">Unsupervised <span style="background: linear-gradient(90deg, #22d3ee, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Machine Learning</span></h1>
+    <p class="text-low lead">K-Means Clustering — Core Concepts</p>
+</div>
+
+<!-- WHAT IS UNSUPERVISED LEARNING -->
+<div class="grid-2 mt-4">
+    <div class="card shadow">
+        <h3 style="color:#22d3ee; margin-bottom:1rem;">What is Unsupervised Learning?</h3>
+        <p>Unsupervised learning is a type of machine learning where the algorithm is trained on <strong>unlabeled data</strong> — there is no predefined output variable. The goal is to discover hidden patterns, structures, or groupings within the data without human guidance.</p>
+        <p style="margin-top:1rem;">Unlike supervised learning (where the model learns from labeled examples), unsupervised learning lets the data speak for itself.</p>
+        <h3 style="color:#22d3ee; margin-top:1.5rem; margin-bottom:1rem;">Real-World Applications</h3>
+        <ul style="padding-left:1.2rem; line-height:2;">
+            <li><i class="bi bi-arrow-right-circle" style="color:#22d3ee;"></i> Customer segmentation in marketing</li>
+            <li><i class="bi bi-arrow-right-circle" style="color:#22d3ee;"></i> Anomaly detection in cybersecurity</li>
+            <li><i class="bi bi-arrow-right-circle" style="color:#22d3ee;"></i> Document and topic clustering in NLP</li>
+            <li><i class="bi bi-arrow-right-circle" style="color:#22d3ee;"></i> Gene expression grouping in biology</li>
+            <li><i class="bi bi-arrow-right-circle" style="color:#22d3ee;"></i> Image compression and segmentation</li>
+        </ul>
+    </div>
+
+    <div class="card shadow">
+        <h3 style="color:#10b981; margin-bottom:1rem;">What is Clustering?</h3>
+        <p>Clustering is the process of grouping a set of data points so that points within the same group (cluster) are <strong>more similar to each other</strong> than to points in other groups. Similarity is typically measured by distance.</p>
+        <p style="margin-top:1rem;">Key clustering algorithms include K-Means, DBSCAN, Hierarchical Clustering, and Gaussian Mixture Models.</p>
+        <h3 style="color:#10b981; margin-top:1.5rem; margin-bottom:1rem;">Supervised vs Unsupervised</h3>
+        <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+            <thead>
+                <tr style="background:rgba(34,211,238,0.1);">
+                    <th style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Aspect</th>
+                    <th style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Supervised</th>
+                    <th style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Unsupervised</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Labels</td>
+                    <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Required</td>
+                    <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Not required</td>
+                </tr>
+                <tr style="background:rgba(255,255,255,0.03);">
+                    <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Goal</td>
+                    <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Predict output</td>
+                    <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Find structure</td>
+                </tr>
+                <tr>
+                    <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Example</td>
+                    <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Classification</td>
+                    <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Clustering</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- K-MEANS -->
+<div class="card shadow mt-4" style="border-top: 4px solid #22d3ee;">
+    <h2 style="color:#22d3ee; text-align:center; margin-bottom:2rem;">What is K-Means?</h2>
+    <div class="grid-2">
+        <div>
+            <p>K-Means is one of the most popular clustering algorithms. It partitions a dataset into <strong>K clusters</strong> by iteratively assigning points to the nearest centroid and updating centroids until convergence.</p>
+            <h3 style="color:#10b981; margin-top:1.5rem; margin-bottom:1rem;">Algorithm Steps</h3>
+            <ol style="padding-left:1.2rem; line-height:2.2;">
+                <li>Choose <strong>K</strong> (number of clusters)</li>
+                <li>Initialize K centroids randomly</li>
+                <li>Assign each point to the nearest centroid</li>
+                <li>Recalculate centroids as the mean of assigned points</li>
+                <li>Repeat steps 3–4 until centroids stop changing</li>
+            </ol>
+        </div>
+        <div>
+            <h3 style="color:#f59e0b; margin-bottom:1rem;">Key Concepts</h3>
+
+            <div class="card" style="margin-bottom:1rem; padding:1rem; border-left:3px solid #22d3ee;">
+                <strong style="color:#22d3ee;">Centroid</strong>
+                <p style="margin-top:0.4rem; font-size:0.9rem;">The center point of a cluster, calculated as the mean of all data points assigned to that cluster. It is updated each iteration.</p>
+            </div>
+
+            <div class="card" style="margin-bottom:1rem; padding:1rem; border-left:3px solid #10b981;">
+                <strong style="color:#10b981;">Euclidean Distance</strong>
+                <p style="margin-top:0.4rem; font-size:0.9rem;">The straight-line distance between two points. For features x₁, x₂: <code>d = √((x₁−c₁)² + (x₂−c₂)²)</code></p>
+            </div>
+
+            <div class="card" style="margin-bottom:1rem; padding:1rem; border-left:3px solid #f59e0b;">
+                <strong style="color:#f59e0b;">Variance / Inertia</strong>
+                <p style="margin-top:0.4rem; font-size:0.9rem;">The sum of squared distances from each point to its assigned centroid. Lower variance means tighter, better-defined clusters.</p>
+            </div>
+
+            <div class="card" style="padding:1rem; border-left:3px solid #a855f7;">
+                <strong style="color:#a855f7;">Convergence</strong>
+                <p style="margin-top:0.4rem; font-size:0.9rem;">The algorithm converges when centroids no longer move significantly between iterations — meaning cluster assignments have stabilized.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA -->
+<div style="display:flex; gap:1rem; justify-content:center; margin:3rem 0;">
+    <a href="/clustering/manual-exercise" class="btn btn-primary" style="padding:0.9rem 2rem; background:linear-gradient(135deg,#22d3ee,#10b981); border:none; border-radius:10px; color:#0f172a; font-weight:700; text-decoration:none; font-size:1rem;">
+        <i class="bi bi-calculator"></i> Manual Exercise →
+    </a>
+    <a href="/clustering/application" class="btn btn-primary" style="padding:0.9rem 2rem; background:rgba(34,211,238,0.1); border:1px solid #22d3ee; border-radius:10px; color:#22d3ee; font-weight:700; text-decoration:none; font-size:1rem;">
+        <i class="bi bi-diagram-3"></i> Clustering App →
+    </a>
+</div>
+{% endblock %}

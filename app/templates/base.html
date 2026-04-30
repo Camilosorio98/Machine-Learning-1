@@ -44,6 +44,25 @@
             background-color: rgba(255, 255, 255, 0.05);
             padding-left: 28px;
         }
+
+        /* Core dropdown behavior */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            background-color: #0f172a;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            z-index: 1000;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -65,6 +84,17 @@
                         <a href="/use-cases/price">Use Case 2 (Price)</a>
                         <a href="/use-cases/spending">Use Case 3 (Spending)</a>
                         <a href="/use-cases/demand">Use Case 4 (Demand)</a>
+                    </div>
+                </div>
+
+                <!-- MENÚ: UNSUPERVISED MACHINE LEARNING -->
+                <div class="dropdown">
+                    <span class="nav-item">UNSUPERVISED ML <i class="bi bi-chevron-down"></i></span>
+                    <div class="dropdown-content">
+                        <div class="menu-seccion-titulo">K-Means Clustering</div>
+                        <a href="/clustering/basic-concepts">Basic Concepts</a>
+                        <a href="/clustering/manual-exercise">Manual Exercise</a>
+                        <a href="/clustering/application">Clustering Application</a>
                     </div>
                 </div>
 
